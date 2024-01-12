@@ -21,7 +21,7 @@ public class SymbolCounterTusk2 {
         for (int i = 0; i < 128; i++) {
             if (latinAndCyrillic[i] > 0) {
                 char currChar = (char) i;
-                System.out.println((i + 1) + ". " + currChar + " - " + latinAndCyrillic[i]);
+                System.out.println(currChar + " - " + latinAndCyrillic[i]);
             }
         }
     }
