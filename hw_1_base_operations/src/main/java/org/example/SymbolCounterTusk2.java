@@ -8,7 +8,7 @@ public class SymbolCounterTusk2 {
         System.out.print("Enter a value for the character count: ");
         String input = reader.readLine();
 
-        int[] latinAndCyrillic = new int[128];
+        int[] latinAndCyrillic = new int[65536];
 
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
@@ -18,7 +18,7 @@ public class SymbolCounterTusk2 {
             }
         }
 
-        for (int i = 0; i < 128; i++) {
+        for (int i = 0; i < 65536; i++) {
             if (latinAndCyrillic[i] > 0) {
                 char currChar = (char) i;
                 System.out.println(currChar + " - " + latinAndCyrillic[i]);
