@@ -8,21 +8,41 @@ public class SymbolCounterTusk2 {
         System.out.print("Enter a value for the character count: ");
         String input = reader.readLine();
 
-        int[] latinAndCyrillic = new int[65536];
+        for (char c = 'a'; c <= 'z'; c++) {
+            int count = countCharacter(input, c);
+            if(count > 0) {
+                System.out.println(c + " - " + count);
+            }
+        }
 
+        for (char c = 'A'; c <= 'Z'; c++) {
+            int count = countCharacter(input, c);
+            if(count > 0) {
+                System.out.println(c + " - " + count);
+            }
+        }
+
+        for (char c = 'а'; c <= 'я'; c++) {
+            int count = countCharacter(input, c);
+            if(count > 0) {
+                System.out.println(c + " - " + count);
+            }
+        }
+
+        for (char c = 'А'; c <= 'Я'; c++) {
+            int count = countCharacter(input, c);
+            if(count > 0) {
+                System.out.println(c + " - " + count);
+            }
+        }
+    }
+    public static int countCharacter(String input, char targetChar) {
+        int count = 0;
         for (int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= 'а' && c <= 'я') ||
-                    (c >= 'А' && c <= 'Я')) {
-                latinAndCyrillic[c]++;
+            if (input.charAt(i) == targetChar) {
+                count++;
             }
         }
-
-        for (int i = 0; i < 65536; i++) {
-            if (latinAndCyrillic[i] > 0) {
-                char currChar = (char) i;
-                System.out.println(currChar + " - " + latinAndCyrillic[i]);
-            }
-        }
+        return count;
     }
 }
