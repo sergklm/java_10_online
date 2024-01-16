@@ -14,21 +14,18 @@ public class SymbolCounterTusk2 {
                 System.out.println(c + " - " + count);
             }
         }
-
         for (char c = 'A'; c <= 'Z'; c++) {
             int count = countCharacter(input, c);
             if(count > 0) {
                 System.out.println(c + " - " + count);
             }
         }
-
         for (char c = 'а'; c <= 'я'; c++) {
             int count = countCharacter(input, c);
             if(count > 0) {
                 System.out.println(c + " - " + count);
             }
         }
-
         for (char c = 'А'; c <= 'Я'; c++) {
             int count = countCharacter(input, c);
             if(count > 0) {
@@ -36,6 +33,7 @@ public class SymbolCounterTusk2 {
             }
         }
     }
+
     public static int countCharacter(String input, char targetChar) {
         int count = 0;
         for (int i = 0; i < input.length(); i++) {
