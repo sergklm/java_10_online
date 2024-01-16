@@ -19,7 +19,6 @@ public class SumNumbersTask1 {
                 currentNum = 0;
             }
         }
-
         if (currentNum > 0) {
             sum += currentNum;
         }
