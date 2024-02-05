@@ -1,5 +1,3 @@
-REMOVE .idea from project
-
 Оч хорошо
 
         int totalMinutes = lessonNumber * 45 + ((lessonNumber - 1) / 2) * 20;
