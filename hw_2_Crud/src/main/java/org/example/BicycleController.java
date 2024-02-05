@@ -3,6 +3,7 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import org.example.Bicycle;
 
 public class BicycleController {
 
@@ -38,28 +39,48 @@ public class BicycleController {
         String brandBike = reader.readLine();
         System.out.println("Enter your bike model");
         String modelBike = reader.readLine();
+        System.out.println("Enter your bike year of manufacture");
+        String yearString = reader.readLine();
         Bicycle bicycle = new Bicycle();
-        bicycle.brandBike = brandBike;
-        bicycle.modelBike = modelBike;
+        bicycle.setBrandBike(brandBike);
 
-        if(bicycles[bicycles.length - 1] != null) {
+        if (bicycle.getBrandBike() == null) {
+            System.out.println("Returning to the menu. Please enter data in letter format.");
+            return;
+        }
+
+        bicycle.setModelBike(modelBike);
+        if (bicycle.getModelBike() == null) {
+            System.out.println("Returning to the menu. Please enter data in letter format.");
+            return;
+        }
+
+        bicycle.setYearOfManufacture(yearString);
+        if (bicycle.getYearOfManufacture() == 0) {
+            System.out.println("Returning to the menu. Please enter valid data.");
+            return;
+        }
+
+        if (bicycles[bicycles.length - 1] != null) {
             largerBicycles = new Bicycle[20];
             System.arraycopy(bicycles, 0, largerBicycles, 0, bicycles.length);
             bicycles = largerBicycles;
         }
 
-        for(int i = 0; i < bicycles.length; i++) {
-            if (bicycles[i]== null) {
+        for (int i = 0; i < bicycles.length; i++) {
+            if (bicycles[i] == null) {
                 bicycles[i] = bicycle;
                 break;
             }
         }
     }
+
     public void readAll() {
         for (int i = 0; i < bicycles.length; i++) {
             if (bicycles[i] != null) {
                 System.out.println("i: " + i + ", Brand bike: "
-                        + bicycles[i].brandBike + ", Model bike: " + bicycles[i].modelBike);
+                        + bicycles[i].getBrandBike() + ", Model bike: " + bicycles[i].getModelBike()
+                        + ", Year of manufacture: " + bicycles[i].getYearOfManufacture());
             }
         }
     }
