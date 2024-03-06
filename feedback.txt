@@ -1,0 +1,8 @@
+Оч хорошо
+
+        int totalMinutes = lessonNumber * 45 + ((lessonNumber - 1) / 2) * 20;
+                 int hours = 9 + totalMinutes / 60;
+                 int minutes = totalMinutes - (hours - 9) * 60;
+
+        алгоритм пойдет)), но вот эти чудо числа лучше выносить в константы)
+2 - норм, принимаю
