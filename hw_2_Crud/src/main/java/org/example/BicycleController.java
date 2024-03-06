@@ -8,7 +8,7 @@ import org.example.Bicycle;
 public class BicycleController {
 
     private Bicycle[] bicycles = new Bicycle[10];
-    private Bicycle[] largerBicycles = new Bicycle[20];
+
     public void start() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         menu();
@@ -62,7 +62,7 @@ public class BicycleController {
         }
 
         if (bicycles[bicycles.length - 1] != null) {
-            largerBicycles = new Bicycle[20];
+            Bicycle[] largerBicycles = new Bicycle[20];
             System.arraycopy(bicycles, 0, largerBicycles, 0, bicycles.length);
             bicycles = largerBicycles;
         }
