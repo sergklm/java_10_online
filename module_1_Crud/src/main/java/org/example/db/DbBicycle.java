@@ -24,7 +24,7 @@ public class DbBicycle {
 
     public void update(Bicycle bicycle) {
         for (int i = 0; i < bicycles.length; i++) {
-            if (bicycles[i].getId() == bicycle.getId()) {
+            if (bicycles[i] != null && bicycles[i].getId() == bicycle.getId()) {
                 bicycles[i] = bicycle;
                 break;
             }
@@ -32,14 +32,19 @@ public class DbBicycle {
     }
 
     public void delete(int id) {
+        int indexToRemove = -1;
         for (int i = 0; i < bicycles.length; i++) {
-            if (bicycles[i].getId() == id) {
-                for (int j = i; j < bicycles.length - 1; j++) {
-                    bicycles[j] = bicycles[j + i];
-                }
-                bicycles[bicycles.length - 1] = null;
+            if (bicycles[i] != null && bicycles[i].getId() == id) {
+                indexToRemove = i;
                 break;
             }
+        }
+
+        if (indexToRemove != -1) {
+            for (int i = indexToRemove; i < bicycles.length - 1; i++) {
+                bicycles[i] = bicycles[i + 1];
+            }
+            bicycles[bicycles.length - 1] = null;
         }
     }
 
@@ -47,7 +52,7 @@ public class DbBicycle {
 
     public Bicycle findById(int id) {
         for (int i = 0; i < bicycles.length; i++) {
-            if (bicycles[i].getId() == id) {
+            if (bicycles[i] != null && bicycles[i].getId() == id) {
                 return bicycles[i];
             }
         }

@@ -6,13 +6,13 @@ import org.example.entity.Bicycle;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.regex.Pattern;
 
 public class BicycleController {
-
     private final BicycleService bicycleService = new BicycleService();
 
     public void start() throws IOException {
-        BufferedReader reader =new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         menu();
         String position = "";
         while ((position = reader.readLine()) != null) {
@@ -25,14 +25,20 @@ public class BicycleController {
         System.out.println();
         System.out.println("To add a new bike enter - 1");
         System.out.println("To see the entire list of bicycles, enter - 2");
-        System.out.println("To exit the program, enter - 3");
+        System.out.println("To find a bike by id, enter - 3");
+        System.out.println("To update the bike, enter - 4");
+        System.out.println("To delete the bike, enter - 5");
+        System.out.println("To exit the program, enter - exit");
     }
 
     public void crud(String position, BufferedReader reader) throws IOException {
         switch (position) {
             case "1" -> create(reader);
             case "2" -> readAll();
-            case "3" -> System.exit(0);
+            case "3" -> readById(reader);
+            case "4" -> update(reader);
+            case "5" -> delete(reader);
+            case "exit" -> System.exit(0);
         }
     }
 
@@ -57,7 +63,6 @@ public class BicycleController {
             System.out.println("Incorrect year of manufacture");
             return;
         }
-
         int yearOfManufacture = Integer.parseInt(yearString);
         Bicycle bicycle = new Bicycle();
         bicycle.setBrandBike(brandBike);
@@ -66,7 +71,7 @@ public class BicycleController {
         bicycleService.create(bicycle);
     }
 
-    public void readAll() {
+    private void readAll() {
         for (Bicycle bicycle : bicycleService.findAll()) {
             if (bicycle != null) {
                 System.out.println("Id - " + bicycle.getId()
@@ -74,6 +79,84 @@ public class BicycleController {
                         + ", Model bike - " + bicycle.getModelBike()
                         + ", Yer of manufacture - " + bicycle.getYearOfManufacture());
             }
+        }
+    }
+
+    void readById(BufferedReader reader) throws IOException {
+        System.out.println("Please enter id");
+        String idString = reader.readLine();
+        if (!Pattern.matches("-?\\d+", idString)) {
+            System.out.println("Incorrect input. Please enter a valid ID");
+            return;
+        }
+        int id = Integer.parseInt(idString);
+        Bicycle bicycle = bicycleService.findById(id);
+        if (bicycle != null) {
+            System.out.println(
+                    "Brand bike - " + bicycle.getBrandBike()
+                            + ", Model bike - " + bicycle.getModelBike()
+                            + ", Yer of manufacture - " + bicycle.getYearOfManufacture());
+        } else {
+            System.out.println("Bicycle not found");
+        }
+    }
+
+    void update(BufferedReader reader) throws IOException {
+        System.out.println("Please enter id");
+        String idString = reader.readLine();
+        if (!Pattern.matches("-?\\d+", idString)) {
+            System.out.println("Incorrect input. Please enter a valid ID");
+            return;
+        }
+        int id = Integer.parseInt(idString);
+        Bicycle bicycle = bicycleService.findById(id);
+        if (bicycle != null) {
+            System.out.println("Enter your bike brand");
+            String brandBike = reader.readLine();
+            if (brandBike == null || !isValidBrand(brandBike)) {
+                System.out.println("Incorrect brand name.");
+                return;
+            }
+
+            System.out.println("Enter your bike model");
+            String modelBike = reader.readLine();
+            if (modelBike == null || !isValidModel(modelBike)) {
+                System.out.println("Incorrect model name.");
+                return;
+            }
+
+            System.out.println("Enter your bike year of manufacture");
+            String yearString = reader.readLine();
+            if (yearString == null || !isValidYearOfManufacture(yearString)){
+                System.out.println("Incorrect year of manufacture");
+                return;
+            }
+            int yearOfManufacture = Integer.parseInt(yearString);
+            bicycle = new Bicycle();
+            bicycle.setBrandBike(brandBike);
+            bicycle.setModelBike(modelBike);
+            bicycle.setYearOfManufacture(yearOfManufacture);
+            bicycle.setId(id);
+            bicycleService.update(bicycle);
+        } else {
+            System.out.println("Bicycle not found");
+        }
+    }
+
+    public void delete(BufferedReader reader) throws IOException {
+        System.out.println("Please enter id");
+        String idString = reader.readLine();
+        if (!Pattern.matches("-?\\d+", idString)) {
+            System.out.println("Incorrect input. Please enter a valid ID");
+            return;
+        }
+        int id = Integer.parseInt(idString);
+        bicycleService.delete(id);
+        Bicycle bicycle = bicycleService.findById(id);
+        if (bicycle == null) {
+            System.out.println("Bicycle was deleted");
+        } else {
+            System.out.println("Bicycle not found");
         }
     }
 

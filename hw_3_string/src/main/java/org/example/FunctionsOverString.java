@@ -82,7 +82,6 @@ public class FunctionsOverString {
         if (startIndex == -1) {
             return input;
         }
-
         String beforeSubstring = input.substring(0, startIndex);
         String afterSubstring = input.substring(startIndex + substring.length());
         char[] chars = substring.toCharArray();

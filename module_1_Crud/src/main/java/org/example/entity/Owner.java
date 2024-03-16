@@ -1,22 +1,22 @@
 package org.example.entity;
 
-public class Owner {
-    private String lastname;
-    private String firstname;
+public class Owner extends BaseEntity {
+    private String lastName;
+    private String firstName;
 
     public String getLastname() {
-        return lastname;
+        return lastName;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastName = lastname;
     }
 
     public String getFirstname() {
-        return firstname;
+        return firstName;
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname;
+        this.firstName = firstname;
     }
 }
