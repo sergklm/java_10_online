@@ -1,7 +1,5 @@
 package org.example.controller;
 
-import org.example.CrudMain;
-import org.example.entity.Bicycle;
 import org.example.service.OwnerService;
 import org.example.entity.Owner;
 
@@ -16,11 +14,11 @@ public class OwnerController {
 
     public void start() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        menu();
         String position = "";
-        while ((position = reader.readLine()) != null) {
-            crud(position, reader);
+        while (!position.equals("0")) {
             menu();
+            position = reader.readLine();
+            crud(position, reader);
         }
     }
 
@@ -31,6 +29,7 @@ public class OwnerController {
         System.out.println("To find a owner by id, enter - 3");
         System.out.println("To update the owner, enter - 4");
         System.out.println("To delete the owner, enter - 5");
+        System.out.println("Return to the previous menu, enter - 0");
         System.out.println("To exit the program, enter - exit");
     }
 
@@ -64,6 +63,7 @@ public class OwnerController {
         owner.setLastname(lastName);
         owner.setFirstname(firstName);
         ownerService.create(owner);
+        System.out.println("New owner added successfully.");
     }
 
     private void readAll() {
@@ -135,9 +135,9 @@ public class OwnerController {
             return;
         }
         int id = Integer.parseInt(idString);
-        ownerService.delete(id);
         Owner owner = ownerService.findById(id);
-        if (owner == null) {
+        if (owner != null) {
+            ownerService.delete(id);
             System.out.println("Owner was deleted");
         } else {
             System.out.println("Owner not found");

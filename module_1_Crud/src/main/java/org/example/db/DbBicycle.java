@@ -39,12 +39,16 @@ public class DbBicycle {
                 break;
             }
         }
-
         if (indexToRemove != -1) {
             for (int i = indexToRemove; i < bicycles.length - 1; i++) {
                 bicycles[i] = bicycles[i + 1];
             }
             bicycles[bicycles.length - 1] = null;
+            for (int i = indexToRemove; i < bicycles.length - 1; i++) {
+                if (bicycles[i] != null) {
+                    bicycles[i].setId(i);
+                }
+            }
         }
     }
 

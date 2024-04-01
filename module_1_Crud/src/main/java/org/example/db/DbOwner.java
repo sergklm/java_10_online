@@ -38,13 +38,31 @@ public class DbOwner {
                 break;
             }
         }
-
         if (indexToRemove != -1) {
             for (int i = indexToRemove; i < owners.length - 1; i++) {
                 owners[i] = owners[i + 1];
             }
             owners[owners.length - 1] = null;
+            for (int i = indexToRemove; i < owners.length - 1; i++) {
+                if (owners[i] != null) {
+                    owners[i].setId(i);
+                }
+            }
         }
+//        int indexToRemove = -1;
+//        for (int i = 0; i < owners.length; i++) {
+//            if (owners[i] != null && owners[i].getId() == id) {
+//                indexToRemove = i;
+//                break;
+//            }
+//        }
+//
+//        if (indexToRemove != -1) {
+//            for (int i = indexToRemove; i < owners.length - 1; i++) {
+//                owners[i] = owners[i + 1];
+//            }
+//            owners[owners.length - 1] = null;
+//        }
     }
 
     public Owner[] findAll() {

@@ -13,11 +13,11 @@ public class BicycleController {
 
     public void start() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        menu();
         String position = "";
-        while ((position = reader.readLine()) != null) {
-            crud(position, reader);
+        while (!position.equals("0")) {
             menu();
+            position = reader.readLine();
+            crud(position, reader);
         }
     }
 
@@ -28,6 +28,7 @@ public class BicycleController {
         System.out.println("To find a bike by id, enter - 3");
         System.out.println("To update the bike, enter - 4");
         System.out.println("To delete the bike, enter - 5");
+        System.out.println("Return to the previous menu, enter - 0");
         System.out.println("To exit the program, enter - exit");
     }
 
@@ -69,6 +70,7 @@ public class BicycleController {
         bicycle.setModelBike(modelBike);
         bicycle.setYearOfManufacture(yearOfManufacture);
         bicycleService.create(bicycle);
+        System.out.println("New bicycle added successfully.");
     }
 
     private void readAll() {
@@ -151,15 +153,14 @@ public class BicycleController {
             return;
         }
         int id = Integer.parseInt(idString);
-        bicycleService.delete(id);
         Bicycle bicycle = bicycleService.findById(id);
-        if (bicycle == null) {
+        if (bicycle != null) {
+            bicycleService.delete(id);
             System.out.println("Bicycle was deleted");
         } else {
             System.out.println("Bicycle not found");
         }
     }
-
     private boolean isValidString(String input) {
         if (input.isEmpty()) {
             return false;
@@ -181,7 +182,7 @@ public class BicycleController {
         return isValidString(brand);
     }
 
-    private boolean isValidModel( String model) {
+    private boolean isValidModel(String model) {
         return isValidString(model);
     }
 
